@@ -69,6 +69,7 @@ int main(void)
 
     TraceBack(track, 0);
 
+    std::cout<<"N*N has "<< res.size()<<" choice"<<std::endl;
     for(int i=0;i<res.size();i++){
         for (int j=0;j<res[i].size();j++){
             std::cout<<res[i][j]<<std::endl;
