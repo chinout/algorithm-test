@@ -23,11 +23,30 @@
 
             return dp(amount) 
 */
+
+
 #include<vector>
 #include<iostream>
 #include<stdlib.h>
 #include<algorithm>
+#include<map>
 
+//dp function
+int CoinChange_dpfunc(const std::vector<int>& coins, int amount){
+    if(amount == 0) return 0;
+    if(amount < 0) return -1;
+    std::map<int, int> memo;
+    if (memo[amount]) return memo[amount];
+    int res = amount+1;
+    for(auto coin:coins){
+        if(CoinChange_dpfunc(coins, amount - coin) == -1) continue;
+        res = std::min(res, CoinChange_dpfunc(coins, amount - coin)+1);
+    }
+    memo[amount] = res;
+    return res;
+}
+
+//dp array
 int CoinChange_dparray(const std::vector<int>& coins, int amount){
     std::vector<int> dp(amount+1, amount+1);
     dp[0] = 0;
@@ -44,7 +63,7 @@ int CoinChange_dparray(const std::vector<int>& coins, int amount){
 int main(){
     std::vector<int> coins = {1,2,5};
     int amount = 12;
-    int res = CoinChange_dparray(coins, amount);
+    int res = CoinChange_dpfunc(coins, amount);
     std::cout<<"CoinChange amount = "<<amount<<"res is "<<res<<std::endl;
 }
 
